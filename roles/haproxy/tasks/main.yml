@@ -1,0 +1,11 @@
+---
+- import_tasks: apt.yml
+- import_tasks: install.yml
+- import_tasks: configuration.yml
+
+- name: ensure Haproxy is started and enabled
+  become: true
+  service:
+    name: haproxy
+    state: started
+    enabled: true

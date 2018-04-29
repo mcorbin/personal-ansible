@@ -1,0 +1,23 @@
+---
+nginx_user: www-data
+nginx_pid_path: /run/nginx.pid
+
+# Common packages
+nginx_packages:
+  - fonts-dejavu-core
+  - nginx-common
+  - nginx-full
+  - libssl-dev
+
+nginx_debian_distribution: "{{ ansible_distribution_release }}"
+
+nginx_templates: []
+nginx_linked_templates: []
+
+nginx_system_templates:
+  - src: default-nginx.j2
+    dest: /etc/default/nginx
+    owner: root
+    group: root
+    mode: "0644"
+...

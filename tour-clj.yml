@@ -1,0 +1,8 @@
+---
+
+- hosts: tour-clj
+  roles:
+    - role: java
+      tags: java
+    - role: tour-clj
+      tags: tour-clj

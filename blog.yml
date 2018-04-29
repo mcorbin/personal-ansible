@@ -1,0 +1,46 @@
+---
+- hosts: blog
+  roles:
+    - role: nginx
+      vars:
+        nginx_templates: "{{ blog_nginx_templates }}"
+        nginx_linked_templates: "{{ blog_nginx_linked_templates }}"
+      tags: nginx
+  post_tasks:
+    # TODO : replace this by CD tool
+    - name: create blog static directory
+      become: true
+      file:
+        path: "{{ blog_static_directory }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    # not idempotent and hacky but will be replaced soon by continuous deploymeny
+    # tool very soon.
+    - name: create tmp dir for blog
+      become: true
+      file:
+        path: /tmp/blog
+        state: directory
+        owner: root
+        group: root
+        mode: "0644"
+    - name: download and unarchive blog archive
+      become: true
+      unarchive:
+        src: "{{ blog_github_url }}"
+        dest: /tmp/blog
+        remote_src: yes
+        extra_opts: "--strip-components=1"
+    - name: remove current blog dir content
+      become: true
+      shell: "rm -rf {{ blog_static_directory }}/*"
+    - name: copy blog
+      become: true
+      shell: "cp -r /tmp/blog/resources/public/* {{ blog_static_directory }}/"
+    - name: remove tmp dir for blog
+      become: true
+      file:
+        path: /tmp/blog
+        state: absent

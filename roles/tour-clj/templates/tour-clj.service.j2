@@ -1,0 +1,13 @@
+[Unit]
+Description=Tour of Clojure, your favorite Clojure tutorial
+After=network.target
+
+[Service]
+User={{ tour_user }}
+Environment=CONFIG_PATH={{ tour_config_path }}
+Group={{ tour_user }}
+ExecStart=/usr/bin/java -jar {{ tour_jar_path }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

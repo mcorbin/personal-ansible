@@ -1,0 +1,6 @@
+---
+- name: install package
+  become: true
+  apt:
+    name: "{{ java_package }}"
+    state: present

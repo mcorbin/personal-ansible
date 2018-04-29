@@ -1,0 +1,14 @@
+
+backend blog_backend
+   balance roundrobin
+   mode http
+
+   option httpchk GET /index.html
+   http-check expect status 200
+   option redispatch
+
+   retries 2
+
+{% for blog_server in groups['blog'] %}
+   server {{ blog_server }} {{ hostvars[blog_server].ansible_eth1.ipv4.address }}:{{ hostvars[blog_server].blog_nginx_port }} check
+{% endfor %}

@@ -1,0 +1,14 @@
+
+backend tour_backend
+   balance roundrobin
+   mode http
+
+   option httpchk GET /
+   http-check expect status 200
+   option redispatch
+
+   retries 2
+
+{% for tour_server in groups['tour-clj'] %}
+   server {{ tour_server }} {{ hostvars[tour_server].ansible_eth1.ipv4.address }}:{{ hostvars[tour_server].tour_port }} check
+{% endfor %}

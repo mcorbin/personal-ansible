@@ -1,0 +1,27 @@
+
+- name: haproxy
+  src: git+ssh://git@github.com/mcorbin/haproxy-ansible-role
+  scm: git
+  version: "1.0.1"
+
+- name: ssh
+  src: git+ssh://git@github.com/mcorbin/ssh-ansible-role
+  scm: git
+  version: "master"
+
+- name: java
+  src: git+ssh://git@github.com/mcorbin/java-ansible-role
+  scm: git
+  version: "master"
+
+- name: tour-clj
+  src: git+ssh://git@github.com/mcorbin/tour-clj-ansible-role
+  scm: git
+  version: "master"
+
+- name: nginx
+  src: git+ssh://git@github.com/mcorbin/nginx-ansible-role
+  scm: git
+  version: "master"
+
+

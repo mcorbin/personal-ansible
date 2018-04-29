@@ -1,0 +1,18 @@
+---
+- import_playbook: debian.yml
+  tags: debian
+
+- hosts: all
+  roles:
+    - role: ssh
+      tags: ssh
+
+- import_playbook: frontend.yml
+  tags: frontend
+
+- import_playbook: blog.yml
+  tags: blog
+
+- import_playbook: tour-clj.yml
+  tags: tour
+

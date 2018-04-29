@@ -1,0 +1,15 @@
+---
+haproxy_configuration_templates:
+  - src: haproxy/haproxy.cfg.j2
+    dest: 01_haproxy.cfg
+  - src: haproxy/frontend.j2
+    dest: 02_frontend.cfg
+  - src: haproxy/blog.j2
+    dest: 03_blog.cfg
+  - src: haproxy/tour.j2
+    dest: 03_tour.cfg
+
+haproxy_cert_directory: "/etc/ssl/mcorbin.fr"
+haproxy_cert_path: "{{ haproxy_cert_directory }}/mcorbin.fr.pem"
+
+haproxy_letsencrypt_path: "/etc/letsencrypt/live/mcorbin.fr/"

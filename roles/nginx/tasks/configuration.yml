@@ -1,0 +1,44 @@
+---
+- name: Template Nginx system configuration
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ nginx_system_templates }}"
+
+- name: Template Nginx main configuration file
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner|default('root')}}"
+    group: "{{ item.group|default(nginx_user)}}"
+    mode: "{{ item.mode|default('0640')}}"
+  with_items: "{{ nginx_templates }}"
+  notify: nginx | reload
+
+- name: Template Nginx linked files
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner|default('root')}}"
+    group: "{{ item.group|default(nginx_user)}}"
+    mode: "{{ item.mode|default('0640')}}"
+  with_items: "{{ nginx_linked_templates }}"
+  notify: nginx | reload
+
+- name: Link files
+  become: true
+  file:
+    src: "{{ item.dest }}"
+    dest: "/etc/nginx/sites-enabled/{{ item.dest|basename }}"
+    owner: "{{ item.owner|default('root')}}"
+    group: "{{ item.group|default(nginx_user)}}"
+    state: link
+  with_items: "{{ nginx_linked_templates }}"
+  notify: nginx | reload
+...

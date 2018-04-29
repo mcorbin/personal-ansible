@@ -1,0 +1,49 @@
+---
+- name: delete haproxy.d directory
+  become: true
+  file:
+    path: /etc/haproxy/haproxy.d
+    state: absent
+  changed_when: false
+
+- name: create haproxy.d directory
+  become: true
+  file:
+    path: /etc/haproxy/haproxy.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  changed_when: false
+
+- name: template haproxy configuration in haproxy.d
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/haproxy/haproxy.d/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ haproxy_configuration_templates }}"
+  changed_when: false
+
+- name: assemble haproxy.d configuration
+  become: true
+  assemble:
+    src: /etc/haproxy/haproxy.d
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+  notify: haproxy | reload
+
+- name: template haproxy extra configuration
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ haproxy_extra_templates }}"
+  changed_when: false

@@ -1,0 +1,6 @@
+server {
+    listen {{ ansible_eth1.ipv4.address }}:{{ blog_nginx_port }};
+    location / {
+        root /var/www/blog;
+    }
+}

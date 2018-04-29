@@ -1,0 +1,14 @@
+---
+- import_tasks: install.yml
+  tags: installation
+
+- import_tasks: configuration.yml
+  tags: configuration
+
+- name: Ensure nginx is started
+  become: true
+  service:
+    name: nginx
+    state: started
+    enabled: true
+...

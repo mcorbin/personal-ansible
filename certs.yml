@@ -1,0 +1,22 @@
+---
+- hosts: haproxy
+  tasks:
+    - name: create certificate directory for haproxy
+      become: true
+      file:
+        path: "{{ haproxy_cert_directory }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0750
+    - name: concatenate letsencrypt certificates
+      become: true
+      shell: "cat {{ haproxy_letsencrypt_path }}/fullchain.pem {{ haproxy_letsencrypt_path }}/privkey.pem > {{ haproxy_cert_path }}"
+      no_log: true
+    - name: change cert permissions
+      become: true
+      file:
+        path: "{{ haproxy_cert_path }}"
+        owner: root
+        group: root
+        mode: 0600

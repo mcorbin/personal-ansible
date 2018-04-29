@@ -1,0 +1,12 @@
+---
+- hosts: haproxy
+  pre_tasks:
+    - name: install certbot
+      become: true
+      apt:
+        name: "certbot"
+        state: present
+        default_release: "{{ ansible_distribution_release }}-backports"
+  roles:
+    - role: haproxy
+      tags: haproxy

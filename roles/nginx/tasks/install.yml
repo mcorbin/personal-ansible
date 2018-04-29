@@ -1,0 +1,21 @@
+---
+- name: Ensure backports repo are present
+  become: true
+  apt_repository:
+    repo: 'deb http://ftp.debian.org/debian {{ nginx_debian_distribution }}-backports main'
+    state: present
+  notify: apt | update cache
+
+- meta: flush_handlers
+
+- name: Install nginx packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+    default_release: "{{ nginx_debian_distribution }}-backports"
+    install_recommends: true
+    force: true
+  with_items: "{{ nginx_packages }}"
+  notify: nginx | restart
+...

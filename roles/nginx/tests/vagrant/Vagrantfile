@@ -1,0 +1,37 @@
+N=1
+
+Vagrant.configure("2") do |config|
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.define "nginx9" do |nginx|
+    nginx.vm.synced_folder "..", "/vagrant", :disabled => "true"
+    nginx.vm.hostname = "nginx9"
+    nginx.vm.box = "debian/stretch64"
+    nginx.vm.provider :libvirt do |domain|
+      domain.memory = 512
+      domain.cpus = 1
+    end
+  end
+
+  config.vm.define "nginx8" do |nginx|
+    nginx.vm.synced_folder "..", "/vagrant", :disabled => "true"
+    nginx.vm.hostname = "nginx8"
+    nginx.vm.box = "debian/jessie64"
+    nginx.vm.provider :libvirt do |domain|
+      domain.memory = 512
+      domain.cpus = 1
+    end
+    nginx.vm.provision :shell do |shell|
+      shell.inline = "apt-get update; apt-get install ca-certificates -y"
+    end
+
+    nginx.vm.provision :ansible do |ansible|
+      ansible.limit = "all"
+
+      ansible.playbook = "./playbook.yml"
+      ansible.host_key_checking = "False"
+    end
+  end
+end

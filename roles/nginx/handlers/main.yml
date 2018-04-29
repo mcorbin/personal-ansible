@@ -1,0 +1,23 @@
+---
+- name: apt | update cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: nginx | reload
+  become: true
+  service:
+    name: nginx
+    state: reloaded
+
+- name: rsyslog | restart
+  become: true
+  service:
+    name: rsyslog
+    state: restarted
+
+- name: nginx | restart
+  become: true
+  service:
+    name: nginx
+    state: restarted

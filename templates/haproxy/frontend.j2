@@ -1,0 +1,21 @@
+
+frontend frontend_http
+  mode http
+  bind {{ ansible_eth0.ipv4.address }}:80
+
+  redirect scheme https code 301 if !{ ssl_fc }
+
+# for letsencrypt challenge
+
+# acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+# use_backend letsencrypt-backend if letsencrypt-acl
+
+frontend frontend_https
+  mode http
+  bind {{ ansible_eth0.ipv4.address }}:443 ssl crt {{ haproxy_cert_path }}
+
+  acl tour-acl hdr_dom(host) -i tour.mcorbin.fr
+  acl blog-acl hdr_dom(host) -i mcorbin.fr
+
+  use_backend tour_backend if tour-acl
+  use_backend blog_backend if blog-acl

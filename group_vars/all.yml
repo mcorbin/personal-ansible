@@ -1,0 +1,11 @@
+---
+ansible_user: debian
+
+debian_default_packages:
+  - netcat
+  - htop
+  - curl
+  - tcpdump
+  - vim
+  - net-tools
+  - lsof

@@ -1,0 +1,21 @@
+---
+
+blog_nginx_templates:
+  - src: nginx/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+blog_nginx_linked_templates:
+  - src: nginx/blog.conf.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: "0644"
+
+blog_static_directory: "/var/www/blog"
+
+blog_github_url: https://github.com/mcorbin/blog/tarball/master
+
+blog_nginx_port: 8200
