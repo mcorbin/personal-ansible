@@ -2,6 +2,7 @@
 ansible_user: debian
 
 debian_default_packages:
+  - fail2ban
   - netcat
   - htop
   - curl

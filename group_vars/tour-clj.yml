@@ -2,3 +2,5 @@
 tour_port: 8080
 
 tour_host: "{{ ansible_eth1.ipv4.address }}"
+
+tour_version: 0.0.2
