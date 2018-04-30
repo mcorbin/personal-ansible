@@ -13,6 +13,9 @@ frontend frontend_http
 frontend frontend_https
   mode http
   bind {{ ansible_eth0.ipv4.address }}:443 ssl crt {{ haproxy_cert_path }}
+  http-response set-header Strict-Transport-Security "max-age=16000000; includeSubDomains; preload;"
+  http-response set-header X-Content-Type-Options nosniff
+  http-response set-header X-Frame-Options DENY
 
   acl tour-acl hdr_dom(host) -i tour.mcorbin.fr
   acl blog-acl hdr_dom(host) -i mcorbin.fr

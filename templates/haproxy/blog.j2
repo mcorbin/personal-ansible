@@ -3,6 +3,7 @@ backend blog_backend
    balance roundrobin
    mode http
 
+   http-response set-header Content-Security-Policy "default-src 'self'"
    option httpchk GET /index.html
    http-check expect status 200
    option redispatch
