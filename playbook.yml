@@ -15,4 +15,3 @@
 
 - import_playbook: tour-clj.yml
   tags: tour
-

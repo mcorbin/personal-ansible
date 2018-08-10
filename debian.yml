@@ -3,18 +3,16 @@
   become: true
   vars:
     debian_backports: "deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main"
-  handlers:
-    - name: apt | update cache
-      become: true
-      apt:
-        update_cache: yes
   tasks:
     - name: Enable debian backports repository
       become: true
       apt_repository:
         repo: "{{ debian_backports }}"
         state: present
-      notify: apt | update cache
+    - name: apt | update cache
+      become: true
+      apt:
+        update_cache: yes
     - name: apt upgrade
       become: true
       apt:
