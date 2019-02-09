@@ -3,12 +3,13 @@ frontend frontend_http
   mode http
   bind {{ ansible_eth0.ipv4.address }}:80
 
+# comment for lets encrypt
   redirect scheme https code 301 if !{ ssl_fc }
 
 # for letsencrypt challenge
 
-# acl letsencrypt-acl path_beg /.well-known/acme-challenge/
-# use_backend letsencrypt-backend if letsencrypt-acl
+#  acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+#  use_backend letsencrypt-backend if letsencrypt-acl
 
 frontend frontend_https
   mode http

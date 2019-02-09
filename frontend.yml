@@ -1,4 +1,7 @@
 ---
+- hosts: all
+  gather_facts: True
+
 - hosts: haproxy
   pre_tasks:
     - name: install certbot

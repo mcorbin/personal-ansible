@@ -1,4 +1,8 @@
 ---
+- hosts: all
+  gather_facts: true
+  tags: always
+
 - import_playbook: debian.yml
   tags: debian
 
