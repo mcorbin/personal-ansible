@@ -16,7 +16,7 @@
     - name: apt upgrade
       become: true
       apt:
-        upgrade: yes
+        upgrade: dist
     - name: install default packages
       become: true
       apt:
