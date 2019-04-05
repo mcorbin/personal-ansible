@@ -4,12 +4,12 @@ backend blog_backend
    mode http
 
 #   http-response set-header Content-Security-Policy "default-src 'self'"
-   option httpchk GET /index.html
+   option httpchk GET /pages/health/
    http-check expect status 200
    option redispatch
 
    retries 2
 
 {% for blog_server in groups['blog'] %}
-   server {{ blog_server }} {{ hostvars[blog_server].ansible_eth1.ipv4.address }}:{{ hostvars[blog_server].blog_nginx_port }} check
+   server {{ blog_server }} {{ hostvars[blog_server].ansible_eth1.ipv4.address }}:{{ hostvars[blog_server].blog_nginx_port }} check inter 20000
 {% endfor %}

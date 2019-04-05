@@ -6,6 +6,16 @@ blog_nginx_templates:
     owner: root
     group: root
     mode: "0644"
+  - src: nginx/htpasswd
+    dest: /etc/nginx/.htpasswd
+    owner: root
+    group: root
+    mode: "0644"
+  - src: nginx/logrotate.conf
+    dest: /etc/logrotate.d/nginx
+    owner: root
+    group: root
+    mode: "0644"
 
 blog_nginx_linked_templates:
   - src: nginx/blog.conf.j2
@@ -15,6 +25,8 @@ blog_nginx_linked_templates:
     mode: "0644"
 
 blog_static_directory: "/var/www/blog"
+
+blog_statistics_directory: "/var/www/blogstats"
 
 blog_github_url: https://github.com/mcorbin/blog/tarball/master
 

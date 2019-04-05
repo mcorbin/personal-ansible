@@ -1,5 +1,7 @@
 ---
 - hosts: blog
+  vars_files:
+    - password.yml
   roles:
     - role: nginx
       vars:
@@ -16,8 +18,16 @@
         owner: root
         group: root
         mode: 0755
+    - name: create blog statistics directory
+      become: true
+      file:
+        path: "{{ blog_statistics_directory }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
     # not idempotent and hacky but will be replaced soon by continuous deploymeny
-    # tool very soon.
+    # tool.
     - name: create tmp dir for blog
       become: true
       file:
@@ -44,3 +54,25 @@
       file:
         path: /tmp/blog
         state: absent
+
+- hosts: blog
+  tasks:
+    - name: "install goaccess"
+      become: true
+      apt:
+        name: goaccess
+        state: present
+    - name: "template goaccess config"
+      become: true
+      template:
+        src: "goaccess/goaccess.conf"
+        dest: "/etc/goaccess.conf"
+        owner: root
+        group: root
+        mode: 0644
+    - name: add goaccess crontab
+      become: true
+      cron:
+        job: "/bin/zcat /var/log/nginx/access.log.*.gz | /usr/bin/goaccess -g -a > /var/www/blogstats/report-$(date +%Y-%m-%d-%H-%M-%S).html"
+        minute: 0
+        hour: 1
