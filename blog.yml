@@ -62,6 +62,7 @@
       apt:
         name: goaccess
         state: present
+      tags: goaccess
     - name: "template goaccess config"
       become: true
       template:
@@ -70,9 +71,12 @@
         owner: root
         group: root
         mode: 0644
+      tags: goaccess
     - name: add goaccess crontab
       become: true
       cron:
+        name: "goaccess"
         job: "/bin/zcat /var/log/nginx/access.log.*.gz | /usr/bin/goaccess -g -a > /var/www/blogstats/report-$(date +%Y-%m-%d-%H-%M-%S).html"
         minute: 0
         hour: 1
+      tags: goaccess
