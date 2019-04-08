@@ -72,11 +72,20 @@
         group: root
         mode: 0644
       tags: goaccess
+    - name: "template goaccess script"
+      become: true
+      template:
+        src: "goaccess/cron.sh"
+        dest: "/usr/bin/goaccesscron"
+        owner: root
+        group: root
+        mode: 0750
+      tags: goaccess
     - name: add goaccess crontab
       become: true
       cron:
         name: "goaccess"
-        job: "/bin/zcat /var/log/nginx/access.log.*.gz | grep -v health/ | /usr/bin/goaccess -g -a > /var/www/blogstats/report-$(date +%Y-%m-%d-%H-%M-%S).html"
-        minute: 0
-        hour: 1
+        job: "/usr/bin/goaccesscron"
+        minute: 50
+        hour: 23
       tags: goaccess
