@@ -7,6 +7,7 @@ backend blog_backend
    option httpchk GET /pages/health/
    http-check expect status 200
    option redispatch
+   option forwardfor
 
    retries 2
 

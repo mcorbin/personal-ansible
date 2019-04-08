@@ -76,7 +76,7 @@
       become: true
       cron:
         name: "goaccess"
-        job: "/bin/zcat /var/log/nginx/access.log.*.gz | /usr/bin/goaccess -g -a > /var/www/blogstats/report-$(date +%Y-%m-%d-%H-%M-%S).html"
+        job: "/bin/zcat /var/log/nginx/access.log.*.gz | grep -v health/ | /usr/bin/goaccess -g -a > /var/www/blogstats/report-$(date +%Y-%m-%d-%H-%M-%S).html"
         minute: 0
         hour: 1
       tags: goaccess
