@@ -18,6 +18,14 @@
         owner: root
         group: root
         mode: 0755
+    - name: create meuse static directory
+      become: true
+      file:
+        path: "{{ meuse_static_directory }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
     - name: create blog statistics directory
       become: true
       file:
@@ -28,6 +36,7 @@
         mode: 0755
     # not idempotent and hacky but will be replaced soon by continuous deploymeny
     # tool.
+    # blog
     - name: create tmp dir for blog
       become: true
       file:
@@ -89,3 +98,34 @@
         minute: 50
         hour: 23
       tags: goaccess
+
+# meuse deployment
+- hosts: blog
+  tasks:
+    - name: create tmp dir for meuse
+      become: true
+      file:
+        path: /tmp/meuse
+        state: directory
+        owner: root
+        group: root
+        mode: "0644"
+    - name: download and unarchive meuse archive
+      become: true
+      unarchive:
+        src: "{{ meuse_github_url }}"
+        dest: /tmp/meuse
+        remote_src: yes
+        extra_opts: "--strip-components=1"
+    - name: remove current meuse dir content
+      become: true
+      shell: "rm -rf {{ meuse_static_directory }}/*"
+    - name: copy meuse
+      become: true
+      shell: "cp -r /tmp/meuse/public/* {{ meuse_static_directory }}/"
+    - name: remove tmp dir for meuse
+      become: true
+      file:
+        path: /tmp/meuse
+        state: absent
+  tags: meuse

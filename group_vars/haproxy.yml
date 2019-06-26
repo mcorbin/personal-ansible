@@ -6,6 +6,8 @@ haproxy_configuration_templates:
     dest: 02_frontend.cfg
   - src: haproxy/blog.j2
     dest: 03_blog.cfg
+  - src: haproxy/meuse.j2
+    dest: 03_meuse.cfg
   - src: haproxy/tour.j2
     dest: 03_tour.cfg
 
