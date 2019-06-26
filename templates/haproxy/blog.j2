@@ -4,7 +4,10 @@ backend blog_backend
    mode http
 
 #   http-response set-header Content-Security-Policy "default-src 'self'"
-   option httpchk GET /pages/health/
+
+   http-request set-path /blog%[path]
+   option httpchk GET /blog/pages/health/
+
    http-check expect status 200
    option redispatch
    option forwardfor
