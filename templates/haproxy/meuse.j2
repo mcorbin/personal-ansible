@@ -6,7 +6,7 @@ backend meuse_backend
 #   http-response set-header Content-Security-Policy "default-src 'self'"
 
    http-request set-path /meuse%[path]
-   option httpchk GET /meuse/
+   option httpchk GET /meuse/health.html
 
    http-check expect status 200
    option redispatch
