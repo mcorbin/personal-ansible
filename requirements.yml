@@ -2,7 +2,7 @@
 - name: haproxy
   src: git+ssh://git@github.com/mcorbin/haproxy-ansible-role
   scm: git
-  version: "1.0.1"
+  version: "master"
 
 - name: ssh
   src: git+ssh://git@github.com/mcorbin/ssh-ansible-role
