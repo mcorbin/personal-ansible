@@ -1,12 +1,12 @@
 ---
-- hosts: all
+- hosts: base
   gather_facts: true
   tags: always
 
 - import_playbook: debian.yml
   tags: debian
 
-- hosts: all
+- hosts: base
   roles:
     - role: ssh
       tags: ssh

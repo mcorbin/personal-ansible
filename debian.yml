@@ -1,14 +1,7 @@
 ---
-- hosts: all
+- hosts: base
   become: true
-  vars:
-    debian_backports: "deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main"
   tasks:
-    - name: Enable debian backports repository
-      become: true
-      apt_repository:
-        repo: "{{ debian_backports }}"
-        state: present
     - name: apt | update cache
       become: true
       apt:

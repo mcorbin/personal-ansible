@@ -15,3 +15,6 @@ haproxy_cert_directory: "/etc/ssl/mcorbin.fr"
 haproxy_cert_path: "{{ haproxy_cert_directory }}/mcorbin.fr.pem"
 
 haproxy_letsencrypt_path: "/etc/letsencrypt/live/mcorbin.fr/"
+
+haproxy_debian_backports_enabled: false
+frontend_eip: 159.100.242.232

@@ -1,10 +1,10 @@
 
 frontend frontend_http
   mode http
-  bind {{ ansible_eth0.ipv4.address }}:80
+  bind :80
 
 # comment for lets encrypt
-  redirect scheme https code 301 if !{ ssl_fc }
+redirect scheme https code 301 if !{ ssl_fc }
 
 # for letsencrypt challenge
 
@@ -13,7 +13,7 @@ frontend frontend_http
 
 frontend frontend_https
   mode http
-  bind {{ ansible_eth0.ipv4.address }}:443 ssl crt {{ haproxy_cert_path }}
+  bind :443 ssl crt {{ haproxy_cert_path }}
   http-response set-header Strict-Transport-Security "max-age=16000000; includeSubDomains; preload;"
   http-response set-header X-Content-Type-Options nosniff
   http-response set-header X-Frame-Options DENY

@@ -4,6 +4,14 @@
 
 - hosts: haproxy
   pre_tasks:
+    - name: configure elastic IP
+      become: true
+      template:
+        src: templates/frontend/eip.cfg.j2
+        dest: /etc/network/interfaces.d/eip.cfg
+        owner: root
+        group: root
+        mode: 0644
     - name: install certbot
       become: true
       apt:
