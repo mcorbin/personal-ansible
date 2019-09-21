@@ -10,6 +10,8 @@ haproxy_configuration_templates:
     dest: 03_meuse.cfg
   - src: haproxy/tour.j2
     dest: 03_tour.cfg
+  - src: haproxy/fishing.j2
+    dest: 03_fishing.cfg
 
 haproxy_cert_directory: "/etc/ssl/mcorbin.fr"
 haproxy_cert_path: "{{ haproxy_cert_directory }}/mcorbin.fr.pem"
