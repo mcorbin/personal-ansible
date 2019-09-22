@@ -4,7 +4,7 @@ frontend frontend_http
   bind :80
 
 # comment for lets encrypt
-# redirect scheme https code 301 if !{ ssl_fc }
+redirect scheme https code 301 if !{ ssl_fc }
 
 # for letsencrypt challenge
 
