@@ -63,6 +63,7 @@
       file:
         path: /tmp/blog
         state: absent
+  tags: techblog
 
 - hosts: blog
   tasks:
