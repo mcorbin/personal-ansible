@@ -14,6 +14,10 @@ server {
         add_header Cache-Control "public, max-age=120, s-maxage=120";
         root /var/www;
     }
+    location /cabourotte {
+        add_header Cache-Control "public, max-age=120, s-maxage=120";
+        root /var/www;
+    }
     location /fishing {
         add_header Cache-Control "public, max-age=120, s-maxage=120";
         root /var/www;

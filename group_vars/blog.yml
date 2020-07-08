@@ -35,3 +35,7 @@ blog_nginx_port: 8200
 meuse_static_directory: "/var/www/meuse"
 
 meuse_github_url: https://github.com/mcorbin/meuse-website/tarball/master
+
+cabourotte_static_directory: "/var/www/cabourotte"
+
+cabourotte_github_url: https://github.com/mcorbin/cabourotte-website/tarball/master
