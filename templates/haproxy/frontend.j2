@@ -8,8 +8,8 @@ redirect scheme https code 301 if !{ ssl_fc }
 
 # for letsencrypt challenge
 
-#  acl letsencrypt-acl path_beg /.well-known/acme-challenge/
-#  use_backend letsencrypt-backend if letsencrypt-acl
+#acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+#use_backend letsencrypt-backend if letsencrypt-acl
 
 frontend frontend_https
   mode http
@@ -21,11 +21,13 @@ frontend frontend_https
   acl tour-acl hdr_dom(host) -i tour.mcorbin.fr
   acl meuse-acl hdr_dom(host) -i meuse.mcorbin.fr
   acl cabourotte-acl hdr_dom(host) -i cabourotte.mcorbin.fr
+  acl commentator-acl hdr_dom(host) -i comments.mcorbin.fr
   acl blog-acl hdr_dom(host) -i mcorbin.fr
   acl fishing-acl hdr_dom(host) -i corbi-fishing.fr
 
   use_backend tour_backend if tour-acl
   use_backend meuse_backend if meuse-acl
   use_backend cabourotte_backend if cabourotte-acl
+  use_backend commentator_backend if commentator-acl
   use_backend blog_backend if blog-acl
   use_backend fishing_backend if fishing-acl

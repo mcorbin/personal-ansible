@@ -1,0 +1,14 @@
+
+backend commentator_backend
+   balance roundrobin
+   mode http
+
+   option httpchk GET /healthz
+   http-check expect status 200
+   option redispatch
+
+   retries 2
+
+{% for commentator_server in groups['commentator'] %}
+   server {{ commentator_server }} {{ hostvars[commentator_server].ansible_eth1.ipv4.address }}:{{ hostvars[commentator_server].commentator_port }} check inter 20000
+{% endfor %}
