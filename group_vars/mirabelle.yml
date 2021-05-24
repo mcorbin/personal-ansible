@@ -1,0 +1,9 @@
+---
+
+mirabelle_streams_templates:
+  - src: "mirabelle/streams/stream.clj"
+    dest: "{{ mirabelle_streams_directory}}/stream.clj"
+
+mirabelle_io_templates:
+  - src: "mirabelle/io/io.edn"
+    dest: "{{ mirabelle_io_directory}}/io.edn"

@@ -11,11 +11,9 @@
     - role: ssh
       tags: ssh
 
-- import_playbook: frontend.yml
-  tags: frontend
-
-- import_playbook: blog.yml
-  tags: blog
-
-- import_playbook: tour-clj.yml
-  tags: tour
+- hosts: mirabelle
+  roles:
+    - role: java
+      tags: java
+    - role: mirabelle
+      tags: mirabelle
