@@ -1,1 +1,7 @@
-{}
+{:pagerduty-client {:config {:service-key "{{ pagerduty_service_key }}"
+                             :source-key :host
+                             :summary-keys [:host :service :state]
+                             :dedup-keys [:host :service]
+                             :http-options {:socket-timeout 5000
+                                            :connection-timeout 5000}}
+                    :type :pagerduty}}
